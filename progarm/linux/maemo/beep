@@ -1,0 +1,5 @@
+#!/bin/bash
+
+dbus-send --system --print-reply --dest=com.nokia.mce /com/nokia/mce/request com.nokia.mce.request.req_vibrator_pattern_activate string:PatternIncomingCall
+sleep 3
+dbus-send --system --print-reply --dest=com.nokia.mce /com/nokia/mce/request com.nokia.mce.request.req_vibrator_pattern_deactivate string:PatternIncomingCall

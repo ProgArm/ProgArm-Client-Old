@@ -1,0 +1,4 @@
+#!/bin/bash
+currentProfile=$(echo $(dbus-send --type=method_call --print-reply=1 --dest=com.nokia.profiled /com/nokia/profiled com.nokia.profiled.get_profile))
+[[ $currentProfile == 'silent' ]] && newProfile=general || newProfile=silent
+dbus-send --type=method_call --dest=com.nokia.profiled /com/nokia/profiled com.nokia.profiled.set_profile string:"$newProfile"

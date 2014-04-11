@@ -1,0 +1,9 @@
+#!/bin/bash
+if ! cmus-remote --next; then
+    if [[ $(uname -n) == 'Nokia-N900' ]]; then
+        osso-xterm cmus
+    else
+        :
+        # TODO automatically start cmus on PC
+    fi 
+fi

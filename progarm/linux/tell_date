@@ -1,0 +1,9 @@
+#!/bin/bash
+read _ status <<< "$(cmus-remote -Q | grep '^status')"
+if [[ $status == 'playing' ]]; then
+    cmus-remote --pause
+    espeak -ven+f4 "$(date "+%-d %-m %A")" # TODO does not respect python's text-to-speech choice
+    cmus-remote --pause
+else
+    espeak -ven+f4 "$(date "+%-d %-m %A")" # ^
+fi
