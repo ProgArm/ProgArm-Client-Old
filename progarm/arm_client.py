@@ -46,8 +46,8 @@ class ArmClient(object):
 
     def addAction(self, code, action):
         """        
-        code -- one of the possible morse codes
-        action -- function pointer or a string to be executed in a shell"""
+        code -- int value representing some morse code letter(s)
+        action -- function pointer or string to be executed in a shell"""
 #        numbers = []
 #        for curChar in name:
 #            charInt = getattr(morse_codes, "MORSE_" + curChar)
