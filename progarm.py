@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import optparse # TODO derecated since Python 2.7, consider switching to argparse
+import optparse  # TODO derecated since Python 2.7, consider switching to argparse
 import platform
 import socket
 #import os
@@ -24,25 +24,25 @@ from progarm.linux.pc.arm_client_linux_pc import ArmClientLinuxPc
 
 def main():
     parser = optparse.OptionParser()
-    parser.add_option('-t', '--type', type='choice', choices=["gnu", "linux", "gnu/linux", "maemo", "n900"], \
+    parser.add_option('-t', '--type', type='choice', choices=["gnu", "linux", "gnu/linux", "maemo", "n900"],
                       help='Specify client type.', dest='clientType', action='store')
 
     (opts, args) = parser.parse_args()
 
     clientClass = None
-    if opts.clientType: # type is specified manually
-        if opts.clientType.lower() in ("gnu","linux", "gnu/linux"):
-            clientClass=ArmClientLinuxPc
+    if opts.clientType:  # type is specified manually
+        if opts.clientType.lower() in ("gnu", "linux", "gnu/linux"):
+            clientClass = ArmClientLinuxPc
         elif opts.clientType.lower() in ("maemo", "n900"):
-            clientClass=ArmClientMaemo
+            clientClass = ArmClientMaemo
 
-    else: # type not specified, trying to guess it
+    else:  # type not specified, trying to guess it
         if platform.system() == "Linux":
             if socket.gethostname() == "Nokia-N900":
             #if os.uname()[1] == "Nokia-N900":
-                clientClass=ArmClientMaemo
+                clientClass = ArmClientMaemo
             else:
-                clientClass=ArmClientLinuxPc
+                clientClass = ArmClientLinuxPc
         else:
             raise Exception("Cannot guess client type, try specifying it manually. See -h for more info.")
 

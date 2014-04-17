@@ -20,6 +20,7 @@ import re
 from os.path import dirname
 # import abc
 
+
 class ArmClientLinux(ArmClient):
     # __metaclass__ = abc.ABCMeta
 
@@ -46,7 +47,7 @@ class ArmClientLinux(ArmClient):
                 self.volumeKnobDown(255 - ticks)
             else:
                 self.volumeKnobUp(ticks)
-        else: # TODO remove else clause to allow further processing?
+        else:  # TODO remove else clause to allow further processing?
             return ArmClient.processData(self, command)
 
     def cmusToggleAaa(self):

@@ -18,6 +18,7 @@ from progarm import morse_codes
 import os
 from os.path import dirname
 
+
 class ArmClientMaemo(ArmClientLinux):
     def __init__(self):
         super(ArmClientMaemo, self).__init__()

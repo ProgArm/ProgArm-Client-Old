@@ -45,7 +45,7 @@ class ArmClient(object):
     #    return morseNumber - 1 # to start from 0 instead of 1
 
     def addAction(self, code, action):
-        """        
+        """
         code -- int value representing some morse code letter(s)
         action -- function pointer or string to be executed in a shell"""
 #        numbers = []
@@ -65,7 +65,7 @@ class ArmClient(object):
     def processData(self, command):
         """Actual data processing. Normally only one byte is processed,
         but sometimes this method might fetch additonal data.
-        
+
         command -- single byte indicating command"""
         if command == "L":  # letter received
             actionKey = ord(self.serial.read())
@@ -96,10 +96,10 @@ class ArmClient(object):
             try:
                 self.init()
                 while True:  # loop for data reading
-                    self.update();
+                    self.update()
                     if not online:
                         online = True
-                        self.onConnect();
+                        self.onConnect()
             except SerialException:
                 if online:  # do not repeat fail error
                     online = False

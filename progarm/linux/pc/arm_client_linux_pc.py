@@ -17,6 +17,7 @@ from ..arm_client_linux import ArmClientLinux
 from progarm import morse_codes
 import os
 
+
 class ArmClientLinuxPc(ArmClientLinux):
     def __init__(self):
         super(ArmClientLinuxPc, self).__init__()
