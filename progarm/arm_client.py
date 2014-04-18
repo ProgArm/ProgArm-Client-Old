@@ -26,6 +26,7 @@ class ArmClient(object):
         self.device = device
         self.actionDict = {}
         self.letters = []
+        self.log = open('log', 'a')
 
     def init(self, baudrate=9600):
         self.letters = []
@@ -74,6 +75,8 @@ class ArmClient(object):
                 action()
             else:
                 self.actionNotFound(actionKey)
+            self.log.write(str(actionKey));
+            self.log.flush();
         elif command == "Q":  # forget everything, previous data is wrong
             # DEPRECATED
             self.letters = []
