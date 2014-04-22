@@ -142,7 +142,7 @@ class ArmClient(object):
         pass
 
     def commandNotFound(self, command):
-        print 'Error: Unknown command', command
+        print 'Warning: Skipping unknown byte:', command
 
     def actionNotFound(self, action):
-        print 'Error: Unknown action', action
+        print 'Warning: Unknown action', action
