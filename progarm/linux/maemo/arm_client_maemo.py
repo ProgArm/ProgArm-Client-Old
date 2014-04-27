@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from ..arm_client_linux import ArmClientLinux
-from progarm import morse_codes
+from progarm import input_codes
 import os
 from os.path import dirname
 
@@ -22,10 +22,10 @@ from os.path import dirname
 class ArmClientMaemo(ArmClientLinux):
     def __init__(self):
         super(ArmClientMaemo, self).__init__()
-        self.addAction(morse_codes.MORSE_P, dirname(__file__) + "/call_answer &")
-        self.addAction(morse_codes.MORSE_R, dirname(__file__) + "/call_release &")
-        self.addAction(morse_codes.MORSE_M, dirname(__file__) + "/mute &")
-        self.addAction(morse_codes.MORSE_S, dirname(__file__) + "/beep &")
+        self.addAction(input_codes.INPUT_P, dirname(__file__) + "/call_answer &")
+        self.addAction(input_codes.INPUT_R, dirname(__file__) + "/call_release &")
+        self.addAction(input_codes.INPUT_M, dirname(__file__) + "/mute &")
+        self.addAction(input_codes.INPUT_S, dirname(__file__) + "/beep &")
 
     def volumeKnobUp(self, amount):
         os.system("./volumeKnob +" + str(amount))

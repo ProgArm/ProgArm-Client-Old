@@ -28,9 +28,9 @@ class ArmClient(object):
         self.letters = []
         self.log = open('log', 'a')
 
-    def init(self, baudrate=9600):
+    def init(self, baudrate=38400):
         self.letters = []
-        self.serial = serial.Serial(self.device, baudrate)
+        self.serial = serial.Serial(self.device, baudrate) #, parity=serial.PARITY_EVEN)
 
     # def morseConvert(morseString):
     #    morseNumber=0
@@ -142,7 +142,7 @@ class ArmClient(object):
         pass
 
     def commandNotFound(self, command):
-        print 'Warning: Skipping unknown byte:', command
+        print 'Warning: Skipping unknown byte:', ord(command)
 
     def actionNotFound(self, action):
         print 'Warning: Unknown action', action

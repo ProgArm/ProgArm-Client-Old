@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from ..arm_client import ArmClient
-from progarm import morse_codes
+from progarm import input_codes
 import os
 import re
 from os.path import dirname
@@ -27,18 +27,18 @@ class ArmClientLinux(ArmClient):
     def __init__(self):
         super(ArmClientLinux, self).__init__("/dev/rfcomm0")
 
-        self.addAction(morse_codes.MORSE_M, "amixer set Master toggle")
+        self.addAction(input_codes.INPUT_M, "amixer set Master toggle")
 
-        self.addAction(morse_codes.MORSE_N, dirname(__file__) + "/cmus_next &")
-        self.addAction(morse_codes.MORSE_B, "cmus-remote --prev &")
-        self.addAction(morse_codes.MORSE_C, dirname(__file__) + "/cmus_pause &")
-        self.addAction(morse_codes.MORSE_A, self.cmusToggleAaa)
+        self.addAction(input_codes.INPUT_N, dirname(__file__) + "/cmus_next &")
+        self.addAction(input_codes.INPUT_B, "cmus-remote --prev &")
+        self.addAction(input_codes.INPUT_C, dirname(__file__) + "/cmus_pause &")
+        self.addAction(input_codes.INPUT_A, self.cmusToggleAaa)
 
-        self.addAction(morse_codes.MORSE_T, "amixer set Master playback 10%+ &")
-        self.addAction(morse_codes.MORSE_E, "amixer set Master playback 10%- &")
+        self.addAction(input_codes.INPUT_T, "amixer set Master playback 10%+ &")
+        self.addAction(input_codes.INPUT_E, "amixer set Master playback 10%- &")
 
-        self.addAction(morse_codes.MORSE_W, dirname(__file__) + "/tell_time &")
-        self.addAction(morse_codes.MORSE_D, dirname(__file__) + "/tell_date &")
+        self.addAction(input_codes.INPUT_W, dirname(__file__) + "/tell_time &")
+        self.addAction(input_codes.INPUT_D, dirname(__file__) + "/tell_date &")
 
     def processData(self, command):
         if command == "V":  # EXPERIMENTAL

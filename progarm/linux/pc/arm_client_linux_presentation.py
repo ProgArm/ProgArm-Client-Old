@@ -14,11 +14,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from arm_client_linux_pc import ArmClientLinuxPc
-from progarm import morse_codes
+from progarm import input_codes
 
 
 class ArmClientLinuxPresentation(ArmClientLinuxPc):
     def __init__(self):
         super(ArmClientLinuxPresentation, self).__init__()
-        self.addAction(morse_codes.MORSE_T, "xdotool key Left &")
-        self.addAction(morse_codes.MORSE_E, "xdotool key Right &")
+        self.addAction(input_codes.INPUT_T, "xdotool key Left &")
+        self.addAction(input_codes.INPUT_E, "xdotool key Right &")
