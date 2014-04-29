@@ -21,9 +21,9 @@ import os
 class ArmClientLinuxPc(ArmClientLinux):
     def __init__(self):
         super(ArmClientLinuxPc, self).__init__()
-        self.addAction(input_codes.INPUT_Q, "xte 'keydown Alt_L' 'key F4' 'keyup Alt_L' &")
+        self.addAction(input_codes.INPUT_F, "xte 'keydown Alt_L' 'key F4' 'keyup Alt_L' &")
         self.addAction(input_codes.INPUT_M, "amixer set Master toggle &")
-        self.addAction(input_codes.INPUT_S, "beep &")
+        self.addAction(input_codes.INPUT_B, "beep &")
 
     def volumeKnobUp(self, amount):
         os.system("amixer set Master playback " + str(amount) + "%+ > /dev/null")

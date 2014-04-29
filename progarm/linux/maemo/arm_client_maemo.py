@@ -22,10 +22,10 @@ from os.path import dirname
 class ArmClientMaemo(ArmClientLinux):
     def __init__(self):
         super(ArmClientMaemo, self).__init__()
-        self.addAction(input_codes.INPUT_P, dirname(__file__) + "/call_answer &")
+        self.addAction(input_codes.INPUT_W, dirname(__file__) + "/call_answer &")
         self.addAction(input_codes.INPUT_R, dirname(__file__) + "/call_release &")
         self.addAction(input_codes.INPUT_M, dirname(__file__) + "/mute &")
-        self.addAction(input_codes.INPUT_S, dirname(__file__) + "/beep &")
+        self.addAction(input_codes.INPUT_B, dirname(__file__) + "/beep &")
 
     def volumeKnobUp(self, amount):
         os.system("./volumeKnob +" + str(amount))
