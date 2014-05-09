@@ -2,7 +2,7 @@
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
+# the Free Software Foundation; either version 3 of the License, or
 # (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
@@ -24,6 +24,8 @@ class ArmClientLinuxPc(ArmClientLinux):
         self.addAction(input_codes.INPUT_F, "xte 'keydown Alt_L' 'key F4' 'keyup Alt_L' &")
         self.addAction(input_codes.INPUT_M, "amixer set Master toggle &")
         self.addAction(input_codes.INPUT_B, "beep &")
+        self.addAction(input_codes.INPUT_R, "xdotool key Right &")
+        self.addAction(input_codes.INPUT_Z, "xdotool key Left &")
 
     def volumeKnobUp(self, amount):
         os.system("amixer set Master playback " + str(amount) + "%+ > /dev/null")
