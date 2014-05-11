@@ -16,6 +16,7 @@
 from ..arm_client_linux import ArmClientLinux
 from progarm import input_codes
 import os
+import pipes
 
 
 class ArmClientLinuxPc(ArmClientLinux):
@@ -34,4 +35,4 @@ class ArmClientLinuxPc(ArmClientLinux):
         os.system("amixer set Master playback " + str(amount) + "%- > /dev/null")
 
     def plainTextReceived(self, str):
-        os.system("notify-send " + str) # TODO escape string
+        os.system("notify-send " + pipes.quote(str))
