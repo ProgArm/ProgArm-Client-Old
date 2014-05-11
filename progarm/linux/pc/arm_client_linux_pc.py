@@ -32,3 +32,6 @@ class ArmClientLinuxPc(ArmClientLinux):
 
     def volumeKnobDown(self, amount):
         os.system("amixer set Master playback " + str(amount) + "%- > /dev/null")
+
+    def plainTextReceived(self, str):
+        os.system("notify-send " + str) # TODO escape string

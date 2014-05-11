@@ -89,6 +89,14 @@ class ArmClient(object):
             self.pong()
         elif command == "d":
             self.sendDate()
+        elif command == "T":
+            strList = []
+            while True:
+                curChar = self.serial.read()
+                if (ord(curChar) == 0):
+                    break
+                strList.append(curChar)
+            self.plainTextReceived(''.join(strList))
         else:
             self.commandNotFound(command)
 
@@ -131,6 +139,10 @@ class ArmClient(object):
         self.serial.write(chr(today.hour))
         self.serial.write(chr(today.minute))
         self.serial.write(chr(today.second))
+
+    # @abc.abstractmethod
+    def plainTextReceived(self, str):
+        pass
 
     def close(self):
         self.serial.close()
