@@ -16,6 +16,7 @@
 import serial
 import time
 import os
+import logging
 from datetime import datetime
 from serial import SerialException
 
@@ -26,11 +27,14 @@ class ArmClient(object):
         self.device = device
         self.actionDict = {}
         self.letters = []
-        self.log = open('log', 'a')
+        logging.basicConfig(filename='progarm.log', level=logging.DEBUG, format='%(asctime)s %(message)s') # TODO move it?
 
     def init(self, baudrate=38400):
         self.letters = []
         self.serial = serial.Serial(self.device, baudrate) #, parity=serial.PARITY_EVEN)
+
+    def noop(self):
+        pass
 
     # def morseConvert(morseString):
     #    morseNumber=0
@@ -75,8 +79,7 @@ class ArmClient(object):
                 action()
             else:
                 self.actionNotFound(actionKey)
-            self.log.write(str(actionKey) + "\n");
-            self.log.flush();
+            logging.info("Action: " + str(actionKey))
         elif command == "Q":  # forget everything, previous data is wrong
             # DEPRECATED
             self.letters = []
@@ -154,7 +157,7 @@ class ArmClient(object):
         pass
 
     def commandNotFound(self, command):
-        print 'Warning: Skipping unknown byte:', ord(command)
+        logging.error('Skipping unknown byte:' + str(ord(command)))
 
     def actionNotFound(self, action):
-        print 'Warning: Unknown action', action
+        logging.warning('Unknown action ' + str(action))

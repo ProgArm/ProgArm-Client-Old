@@ -46,6 +46,9 @@ class ArmClientLinux(ArmClient):
         self.tutorChar = None;
         self.addAction(input_codes.INPUT_X, self.typingTutor)
 
+        self.addAction(input_codes.INPUT_I, self.noop)
+        self.addAction(input_codes.INPUT_J, self.noop)
+
     def processData(self, command):
         if command == "L" and self.tutorChar is not None:
             actionKey = ord(self.serial.read())
@@ -104,6 +107,7 @@ class ArmClientLinux(ArmClient):
         randomChar = random.choice(string.letters).upper()
         self.tutorChar = getattr(input_codes, 'INPUT_' + randomChar)
         self.speak(randomChar)
+        print randomChar
 
     def typingTutor(self):
         self.speak("Typing tutor!")
