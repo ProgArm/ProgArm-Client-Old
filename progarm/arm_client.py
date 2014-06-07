@@ -117,8 +117,7 @@ class ArmClient(object):
             except SerialException:
                 if online:  # do not repeat fail error
                     online = False
-                    print datetime.now()  # log current date
-                    print "Unable to use serial interface! Restarting..."
+                    logging.warning("Unable to use serial interface! Restarting...")
                     self.onDisconnect()
                 time.sleep(1)
 
@@ -151,10 +150,10 @@ class ArmClient(object):
         self.serial.close()
 
     def onConnect(self):
-        pass
+        logging.info("Connected!")
 
     def onDisconnect(self):
-        pass
+        logging.info("Disconnected!")
 
     def commandNotFound(self, command):
         logging.error('Skipping unknown byte:' + str(ord(command)))
