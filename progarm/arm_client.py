@@ -75,7 +75,7 @@ class ArmClient(object):
                 action()
             else:
                 self.actionNotFound(actionKey)
-            self.log.write(str(actionKey));
+            self.log.write(str(actionKey) + "\n");
             self.log.flush();
         elif command == "Q":  # forget everything, previous data is wrong
             # DEPRECATED
