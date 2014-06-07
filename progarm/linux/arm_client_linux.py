@@ -18,6 +18,9 @@ from progarm import input_codes
 import os
 import re
 from os.path import dirname
+import string
+import random
+import time
 # import abc
 
 
@@ -40,8 +43,20 @@ class ArmClientLinux(ArmClient):
         self.addAction(input_codes.INPUT_T, dirname(__file__) + "/tell_time &")
         self.addAction(input_codes.INPUT_D, dirname(__file__) + "/tell_date &")
 
+        self.tutorChar = None;
+        self.addAction(input_codes.INPUT_X, self.typingTutor)
+
     def processData(self, command):
-        if command == "V":  # EXPERIMENTAL
+        if command == "L" and self.tutorChar is not None:
+            actionKey = ord(self.serial.read())
+            if actionKey == self.tutorChar:
+                self.speak("Right!")
+            else:
+                self.speak("Wrong!")
+            time.sleep(1)
+            self.typingTutorGenerate()
+
+        elif command == "V":  # EXPERIMENTAL
             ticks = ord(self.serial.read())
             if ticks > 127:  # negative numbers # TODO 127 ?
                 self.volumeKnobDown(255 - ticks)
@@ -79,3 +94,13 @@ class ArmClientLinux(ArmClient):
     def actionNotFound(self, action):
         ArmClient.actionNotFound(self, action)
         os.system("play -q -s -n synth tri %-36 fade 0 3 3 &")
+
+    def typingTutorGenerate(self):
+        randomChar = random.choice(string.letters).upper()
+        self.tutorChar = getattr(input_codes, 'INPUT_' + randomChar)
+        self.speak(randomChar)
+
+    def typingTutor(self):
+        self.speak("Typing tutor!")
+        time.sleep(1)
+        self.typingTutorGenerate()
