@@ -52,7 +52,12 @@ class ArmClientLinux(ArmClient):
             if actionKey == self.tutorChar:
                 self.speak("Right!")
             else:
-                self.speak("Wrong!")
+                if actionKey == input_codes.INPUT_Q:
+                    self.tutorChar = None
+                    self.speak("Goodbye!")
+                    return
+                else:
+                    self.speak("Wrong!")
             time.sleep(1)
             self.typingTutorGenerate()
 
