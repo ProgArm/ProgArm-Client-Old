@@ -8,5 +8,5 @@ sudo apt-get install python-serial
 
 Recommends:
 ```
-sudo apt-get install espeak # ...
+sudo apt-get install espeak sox xdotool # ...
 ```
