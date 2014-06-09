@@ -87,9 +87,11 @@ class ArmClientLinux(ArmClient):
 
     def onConnect(self):
         self.speak("Online")
+        super(ArmClientLinux, self).onConnect()
 
     def onDisconnect(self):
         self.speak("Offline")
+        super(ArmClientLinux, self).onDisconnect()
 
     def speak(self, text):
         os.system('espeak -ven+f4 ' + re.escape(text) + ' &')

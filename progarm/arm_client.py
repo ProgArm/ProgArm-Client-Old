@@ -27,7 +27,7 @@ class ArmClient(object):
         self.device = device
         self.actionDict = {}
         self.letters = []
-        logging.basicConfig(filename='progarm.log', level=logging.DEBUG, format='%(asctime)s %(message)s') # TODO move it?
+        logging.basicConfig(filename='progarm.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s') # TODO move it?
 
     def init(self, baudrate=38400):
         self.letters = []
@@ -110,10 +110,10 @@ class ArmClient(object):
             try:
                 self.init()
                 while True:  # loop for data reading
-                    self.update()
                     if not online:
                         online = True
                         self.onConnect()
+                    self.update()
             except SerialException:
                 if online:  # do not repeat fail error
                     online = False
