@@ -43,26 +43,39 @@ class ArmClientLinux(ArmClient):
         self.addAction(input_codes.INPUT_T, dirname(__file__) + "/tell_time &")
         self.addAction(input_codes.INPUT_D, dirname(__file__) + "/tell_date &")
 
+        # TODO restart client command?
+
         self.tutorChar = None;
+        self.tutorCode = None;
+        self.tutorAttempts = 0;
         self.addAction(input_codes.INPUT_X, self.typingTutor)
 
         self.addAction(input_codes.INPUT_I, self.noop)
         self.addAction(input_codes.INPUT_J, self.noop)
 
     def processData(self, command):
-        if command == "L" and self.tutorChar is not None:
+        if command == "L" and self.tutorCode is not None:
             actionKey = ord(self.serial.read())
-            if actionKey == self.tutorChar:
+            if actionKey == self.tutorCode: # TODO extract typing tutor into another class?
                 self.speak("Right!")
+                self.tutorAttempts = 0
+                time.sleep(1)
+                self.typingTutorGenerate()
             else:
                 if actionKey == input_codes.INPUT_Q:
+                    self.tutorCode = None
                     self.tutorChar = None
                     self.speak("Goodbye!")
                     return
                 else:
-                    self.speak("Wrong!")
-            time.sleep(1)
-            self.typingTutorGenerate()
+                    self.tutorAttempts += 1
+                    if self.tutorAttempts >= 3:
+                        self.speak("Lets try another!")
+                        time.sleep(1)
+                        self.typingTutorGenerate()
+                        self.tutorAttempts = 0
+                    else:
+                        self.speak("Wrong! " + self.tutorChar)
 
         elif command == "V":  # EXPERIMENTAL
             ticks = ord(self.serial.read())
@@ -106,10 +119,10 @@ class ArmClientLinux(ArmClient):
         os.system("play -q -s -n synth tri %-36 fade 0 3 3 &")
 
     def typingTutorGenerate(self):
-        randomChar = random.choice(string.letters).upper()
-        self.tutorChar = getattr(input_codes, 'INPUT_' + randomChar)
-        self.speak(randomChar)
-        print randomChar
+        self.tutorChar = random.choice(string.letters).upper()
+        self.tutorCode = getattr(input_codes, 'INPUT_' + self.tutorChar)
+        self.speak(self.tutorChar)
+        print self.tutorChar
 
     def typingTutor(self):
         self.speak("Typing tutor!")
