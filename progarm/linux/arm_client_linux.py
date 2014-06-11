@@ -43,6 +43,8 @@ class ArmClientLinux(ArmClient):
         self.addAction(input_codes.INPUT_T, dirname(__file__) + "/tell_time &")
         self.addAction(input_codes.INPUT_D, dirname(__file__) + "/tell_date &")
 
+        self.addAction(input_codes.INPUT_B, self.ping)
+
         # TODO restart client command?
 
         self.tutorChar = None;
@@ -65,6 +67,7 @@ class ArmClientLinux(ArmClient):
                 if actionKey == input_codes.INPUT_Q:
                     self.tutorCode = None
                     self.tutorChar = None
+                    self.serial.write("E1") # enable device actions
                     self.speak("Goodbye!")
                     return
                 else:
@@ -125,6 +128,7 @@ class ArmClientLinux(ArmClient):
         print self.tutorChar
 
     def typingTutor(self):
+        self.serial.write("E0") # disable device actions
         self.speak("Typing tutor!")
         time.sleep(1)
         self.typingTutorGenerate()

@@ -5,7 +5,7 @@
 # the Free Software Foundation; either version 3 of the License, or
 # (at your option) any later version.
 #
-# This program is distributed in the hope that it will be useful,
+# THIS program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -24,7 +24,7 @@ class ArmClientLinuxPc(ArmClientLinux):
         super(ArmClientLinuxPc, self).__init__()
         self.addAction(input_codes.INPUT_F, "xte 'keydown Alt_L' 'key F4' 'keyup Alt_L' &")
         self.addAction(input_codes.INPUT_M, "amixer set Master toggle &")
-        self.addAction(input_codes.INPUT_B, "beep &")
+        #self.addAction(input_codes.INPUT_B, "beep &")
         self.addAction(input_codes.INPUT_R, "xdotool key Right &")
         self.addAction(input_codes.INPUT_Z, "xdotool key Left &")
 

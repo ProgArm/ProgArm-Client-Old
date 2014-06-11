@@ -156,7 +156,7 @@ class ArmClient(object):
         logging.info("Disconnected!")
 
     def commandNotFound(self, command):
-        logging.error('Skipping unknown byte:' + str(ord(command)))
+        logging.error('Skipping unexpected byte:' + str(ord(command)))
 
     def actionNotFound(self, action):
         logging.warning('Unknown action ' + str(action))
