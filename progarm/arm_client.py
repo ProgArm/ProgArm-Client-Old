@@ -28,6 +28,7 @@ class ArmClient(object):
         self.actionDict = {}
         self.letters = []
         logging.basicConfig(filename='progarm.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s') # TODO move it?
+        self.sensorFiles = {}
 
     def init(self, baudrate=38400):
         self.letters = []
@@ -100,6 +101,15 @@ class ArmClient(object):
                     break
                 strList.append(curChar)
             self.plainTextReceived(''.join(strList))
+        elif command == "S":
+            sensorLetter = self.serial.read()
+            strList = []
+            while True:
+                curChar = self.serial.read()
+                if (ord(curChar) == 0):
+                    break
+                strList.append(curChar)
+            self.sensorDataReceived(sensorLetter, ''.join(strList))
         else:
             self.commandNotFound(command)
 
@@ -145,6 +155,12 @@ class ArmClient(object):
     # @abc.abstractmethod
     def plainTextReceived(self, str):
         pass
+
+    def sensorDataReceived(self, sensor, str):
+        if sensor not in self.sensorFiles:
+            self.sensorFiles[sensor] = open(sensor + ".dat", "a") # TODO handle problems
+        self.sensorFiles[sensor].write(str)
+        self.sensorFiles[sensor].flush()
 
     def close(self):
         self.serial.close()

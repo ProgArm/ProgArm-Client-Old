@@ -35,4 +35,5 @@ class ArmClientLinuxPc(ArmClientLinux):
         os.system("amixer set Master playback " + str(amount) + "%- > /dev/null")
 
     def plainTextReceived(self, str):
-        os.system("notify-send " + pipes.quote(str))
+        print str
+        #os.system("notify-send " + pipes.quote(str))

@@ -1,5 +1,6 @@
 # ProgArm
-log
+*.log
+dat
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
