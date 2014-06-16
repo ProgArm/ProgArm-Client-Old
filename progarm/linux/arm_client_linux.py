@@ -52,6 +52,9 @@ class ArmClientLinux(ArmClient):
         self.tutorAttempts = 0;
         self.addAction(input_codes.INPUT_X, self.typingTutor)
 
+        self.isTextInput = False;
+        self.addAction(input_codes.INPUT_K, self.textInput)
+
         self.addAction(input_codes.INPUT_I, self.noop)
         self.addAction(input_codes.INPUT_J, self.noop)
 
@@ -79,7 +82,18 @@ class ArmClientLinux(ArmClient):
                         self.tutorAttempts = 0
                     else:
                         self.speak("Wrong! " + self.tutorChar)
-
+        elif command == "L" and self.isTextInput: # TODO this is getting worse. Think of some support for modules/extensions!
+            actionKey = ord(self.serial.read())
+            for curChar in string.ascii_uppercase:
+                if actionKey == getattr(input_codes, 'INPUT_' + curChar):
+                    # XXX xdotool type is bugged (does not work layouts like dvorak), so it seems like the only way to input
+                    # XXX text is to paste it.
+                    os.system("echo -n " + curChar + " | xsel -i; echo -n " + curChar + " | xsel -ib; xdotool key shift+Insert")
+                    break
+            else:
+                self.speak("Done")
+                self.isTextInput = False
+                self.serial.write("E1") # enable device actions
         elif command == "V":  # EXPERIMENTAL
             ticks = ord(self.serial.read())
             if ticks > 127:  # negative numbers # TODO 127 ?
@@ -122,7 +136,7 @@ class ArmClientLinux(ArmClient):
         os.system("play -q -s -n synth tri %-36 fade 0 3 3 &")
 
     def typingTutorGenerate(self):
-        self.tutorChar = random.choice(string.letters).upper()
+        self.tutorChar = random.choice(string.ascii_uppercase)
         self.tutorCode = getattr(input_codes, 'INPUT_' + self.tutorChar)
         self.speak(self.tutorChar)
         print self.tutorChar
@@ -132,3 +146,8 @@ class ArmClientLinux(ArmClient):
         self.speak("Typing tutor!")
         time.sleep(1)
         self.typingTutorGenerate()
+
+    def textInput(self):
+        self.serial.write("E0") # disable device actions
+        self.speak("Input mode!")
+        self.isTextInput = True
