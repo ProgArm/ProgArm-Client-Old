@@ -21,6 +21,7 @@ from os.path import dirname
 import string
 import random
 import time
+import datetime
 # import abc
 
 
@@ -45,7 +46,7 @@ class ArmClientLinux(ArmClient):
 
         self.addAction(input_codes.INPUT_B, self.ping)
 
-        # TODO restart client command?
+        self.addAction(input_codes.INPUT_W, self.logCurrentTimestamp)
 
         self.tutorChar = None;
         self.tutorCode = None;
@@ -102,6 +103,11 @@ class ArmClientLinux(ArmClient):
                 self.volumeKnobUp(ticks)
         else:  # TODO remove else clause to allow further processing?
             return ArmClient.processData(self, command)
+
+    def logCurrentTimestamp(self):
+        with open("timestamps", "a") as myfile:
+            myfile.write(str(datetime.datetime.now()) + "\n")
+            self.speak("Timestamp saved\n")
 
     def cmusToggleAaa(self):
         os.system("play -q -s -n synth tri %0 fade 0 1 1 &")
